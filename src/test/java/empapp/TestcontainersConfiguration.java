@@ -4,6 +4,7 @@ import com.github.dockerjava.api.model.Bind;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
+import org.testcontainers.activemq.ArtemisContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -24,4 +25,11 @@ public class TestcontainersConfiguration {
         container.setPortBindings(List.of("5432:5432"));
         return container;
     }
+
+    @Bean
+    @ServiceConnection
+    ArtemisContainer artemisContainer () {
+        return new ArtemisContainer(DockerImageName.parse("apache/activemq-artemis:latest"));
+    }
+
 }
